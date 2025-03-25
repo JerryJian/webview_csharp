@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install libwebkit2gtk-4.0-dev xvfb -y
+        run: apt-get update && apt-get install libwebkit2gtk-4.0-dev xvfb -y
       - name: Get CMake
         uses: lukka/get-cmake@latest
       - name: Run CMake
