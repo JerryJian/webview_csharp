@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
+  build-linux-arm64:
     runs-on: [self-hosted, Linux, ARM64]
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +19,26 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: "webview-linux64"
+          name: "webview-linux-arm64"
+          path: ./build
+
+  build-linux-x64:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: apt-get update && apt-get install libwebkit2gtk-4.0-dev xvfb -y
+      - name: Get CMake
+        uses: lukka/get-cmake@latest
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'ninja'
+          buildPreset: 'ninja'
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: "webview-linux-x64"
           path: ./build
 
   build-macos:
